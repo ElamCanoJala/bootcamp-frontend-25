@@ -1,122 +1,103 @@
-<!--
-JavaScript is a multi-paradigm language, meaning it supports object-oriented, imperative, and functional programming.
+## Function Composition
 
+Function composition is a fundamental concept in functional programming. It refers to combining two or more functions to produce a new function, where the output of one function becomes the input of the next.
 
-What is functional programming (FP)?
-Functional programming is a paradigm that treats computation as the evaluation of mathematical functions and avoids changing state or mutable data. Key principles include:
-Pure functions
+In simpler terms:
 
+- Compose functions like a pipeline, where the result flows through each function step by step.
 
-Immutability
+The idea is to build complex behavior by reusing small, focused functions.
 
+```javascript
+const result = f(g(x));
+```
 
-Function composition
+- Examples:
 
+```javascript
+const trim = (str) => str.trim();
+const toLowerCase = (str) => str.toLowerCase();
+const wrapInBrackets = (str) => `<${str}>`;
 
-Higher-order functions
+const result = wrapInBrackets(toLowerCase(trim("  Hello World  ")));
+console.log(result); // <hello world>
 
+// Compose utility: Right-to-left function composition
+const compose =
+  (...fns) =>
+  (x) =>
+    fns.reduceRight((acc, fn) => fn(acc), x);
 
-Avoiding side effects
-What is a side effect?
-A side effect is any interaction of a function with the outside world or modification of something beyond its scope. Examples include:
-Modifying external variables
+// Create a composed function
+const transform = compose(wrapInBrackets, toLowerCase, trim);
 
+console.log(transform("  Hello World  ")); // <hello world>
+```
 
-Writing to the console (console.log)
+## High-Order Functions
 
+In JavaScript, a High-Order Function (HOF) is a function that either:
 
-Modifying the DOM
+- Takes one or more functions as arguments, or
+- Returns a function as its result
 
+This is possible because functions in JavaScript are first-class citizens, meaning they can be stored in variables, passed as arguments, and returned like any other value.
 
-Making HTTP requests
+-Examples:
 
+```javascript
+const casualGreet = (name) => `Hey ${name}!`;
+const formalGreet = (name) => `Good evening, ${name}.`;
+//High-order-function
+function greetUser(greetFunction, name) {
+  return greetFunction(name);
+}
+// Use different greeting styles
+console.log(greetUser(casualGreet, "Alice")); // Hey Alice!
+console.log(greetUser(formalGreet, "Bob")); // Good evening, Bob.
 
-Reading/writing files or data
+//JavaScript’s built-in array methods like map, filter, and reduce are also high-order functions:
+const numbers = [1, 2, 3, 4];
 
+const doubled = numbers.map((n) => n * 2);
+console.log(doubled); // [2, 4, 6, 8]
+```
 
-Mutating existing objects or arrays
-Pure functions
-A pure function follows two rules:
-It always returns the same output for the same input.
+## Recursion
 
+Recursion is a programming technique where a function calls itself in order to solve a problem.
 
-It causes no side effects.
- Higher-Order Functions
-A higher-order function is a function that does at least one of the following:
-Takes another function as an argument.
+Every recursive function needs:
 
+- A base case – the condition under which the recursion stops.
+- A recursive case – the function calls itself with a different (usually smaller or simpler) input.
 
-Returns a function.
+### Simple Analogy
 
-Recursion
-Unlike object-oriented programming, functional programming doesn’t make use of “while” or ”for” loops or “if-else” statements. Functional programs avoid constructions that create different outputs on every execution. Instead, recursive functions call themselves repeatedly until they reach the desired state or solution known as the base case.
+- Think of recursion like Russian nesting dolls: each doll contains a smaller one inside, until you reach the smallest one (the base case).
 
-Composición de funciones
-La composición de funciones es el proceso de combinar dos o más funciones, teniendo como finalidad ejecutar cada una de estas funciones en secuencia para obtener un resultado en concreto.
-> f(x)
-> g(x)
+Examples:
 
-> f(g(x))
-
-En este caso combinamos la función f de x con la función g de x.
-
-
-¡Claro! La composición de funciones es un concepto fundamental en programación funcional. Vamos a verlo paso a paso, con ejemplos claros para que se entienda bien.
-
-🔄 ¿Qué es la composición de funciones?
-🧪 Ejemplo simple en JavaScript
-Supongamos que tienes estas funciones:
-javascript
-CopiarEditar
-const duplicar = x => x * 2;
-const sumarTres = x => x + 3;
-
-
-Si quieres aplicar ambas funciones a un número, puedes hacerlo así:
-javascript
-CopiarEditar
-const resultado = duplicar(sumarTres(5)); // (5 + 3) * 2 = 16
-Esta es composición manual: duplicar(sumarTres(x)).
-
-
-Ejercicio
-Crea una función llamada customFilter que acepte dos argumentos:
-Un array de números.
-
-
-Una función de callback que determine si un elemento debe incluirse o no.
-
-
-La función customFilter debe devolver un nuevo array con los elementos que pasen la condición del callback.
-
-Ejemplo de uso:
-const numbers = [1, 2, 3, 4, 5, 6];
-
-const evenNumbers = customFilter(numbers, function(n) {
-  return n % 2 === 0;
-});
-
-console.log(evenNumbers); // [2, 4, 6]
-
-Solution:
-function customFilter(array, callback) {
-  const result = [];
-  for (let i = 0; i < array.length; i++) {
-    if (callback(array[i])) {
-      result.push(array[i]);
-    }
-  }
-  return result;
+```javascript
+function factorial(n) {
+  if (n === 0) return 1; // base case
+  return n * factorial(n - 1); // recursive case
 }
 
-// Ejemplo de uso:
-const numbers = [1, 2, 3, 4, 5, 6];
+console.log(factorial(5)); // 120
 
-const evenNumbers = customFilter(numbers, function(n) {
-  return n % 2 === 0;
-});
+// factorial(5)
+// = 5 * factorial(4)
+// = 5 * 4 * factorial(3)
+// = 5 * 4 * 3 * factorial(2)
+// = 5 * 4 * 3 * 2 * factorial(1)
+// = 5 * 4 * 3 * 2 * 1 * factorial(0)
+// = 5 * 4 * 3 * 2 * 1 * 1
+// = 120
+```
 
-console.log(evenNumbers); // [2, 4, 6]
+### Why Use Recursion?
 
-
- -->
+- Useful for problems that can be broken down into similar subproblems
+- Especially helpful in tree, graph, and nested structure
+- Can lead to elegant and concise solutions
