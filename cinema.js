@@ -9,7 +9,7 @@ class Seat {
     if (this.isAvailable) {
       this.isAvailable = false;
     }
-    return this.isAvailable;
+    return !this.isAvailable;
   }
 }
 
