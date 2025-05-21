@@ -8,10 +8,8 @@ class Seat {
   reserve() {
     if (this.isAvailable) {
       this.isAvailable = false;
-      return true;
-    } else {
-      return false;
     }
+    return this.isAvailable;
   }
 }
 
