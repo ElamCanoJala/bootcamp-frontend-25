@@ -8,10 +8,10 @@ const Seat = ({ color, seat, row }) => {
   };
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
       <p>{seat + row}</p>
       <div style={styles}></div>
-    </>
+    </div>
   );
 };
 
