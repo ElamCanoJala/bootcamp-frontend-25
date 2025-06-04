@@ -3,7 +3,6 @@ import Seat from "./components/Seats";
 
 function App() {
   let seat = 0;
-  let row = A;
   return (
     <div style={{ display: "flex", gap: "10px" }}>
       <Seat color="red" />
