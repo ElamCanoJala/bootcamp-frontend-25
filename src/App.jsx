@@ -1,18 +1,10 @@
 import "./App.css";
-import Seat from "./components/Seats";
+import Screen from "./components/Screen";
+import Seat from "./components/Seat";
+import Cinema from "./components/Cinema";
 
 function App() {
-  let seat = 0;
-  return (
-    <div style={{ display: "flex", gap: "10px" }}>
-      <Seat color="red" />
-      <Seat color="green" />
-      <Seat color="green" />
-      <Seat color="red" />
-      <Seat color="green" />
-      <Seat color="green" />
-    </div>
-  );
+  return <Cinema />;
 }
 
 export default App;
