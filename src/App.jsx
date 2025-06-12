@@ -1,12 +1,12 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import WeatherSearch from "./organisms/WeatherSearch";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <div>challenge</div>;
+  return (
+    <>
+      <WeatherSearch />
+    </>
+  );
 }
 
 export default App;
