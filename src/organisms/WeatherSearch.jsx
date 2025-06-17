@@ -35,11 +35,25 @@ const WeatherSearch = () => {
     }));
   };
 
+  const handleClean = () => {
+    setCityWeather({
+      cities: {},
+      selectedCity: null,
+    });
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <div className="card-container">
       <div className="btn-container">
         <Input reference={inputRef} placeholder="Search for a city..." />
         <ButtonSearch handleSearch={handleSearch} />
+        {Object.keys(cityWeather.cities).length > 0 && (
+          <button onClick={handleClean}>Clean</button>
+        )}
       </div>
       <div>
         {Object.keys(cityWeather.cities).map((city) => (
