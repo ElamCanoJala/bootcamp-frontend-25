@@ -1,6 +1,7 @@
 import Input from "../atoms/Input";
 import { useRef, useState } from "react";
 import { mockWeatherData } from "../assets/mockData";
+import ButtonSearch from "../atoms/ButtonSearch";
 
 const Search = () => {
   const inputRef = useRef(null);
@@ -44,6 +45,23 @@ const Search = () => {
           </button>
         ))}
       </div>
+      {cityWeather.selectedCity &&
+        cityWeather.cities[cityWeather.selectedCity] && (
+          <div>
+            <h2>{cityWeather.selectedCity}</h2>
+            <p>
+              Temperature:
+              {cityWeather.cities[cityWeather.selectedCity].temperature}
+            </p>
+            <p>
+              Humidity: {cityWeather.cities[cityWeather.selectedCity].humidity}
+            </p>
+            <p>
+              Wind Speed:
+              {cityWeather.cities[cityWeather.selectedCity].windSpeed}
+            </p>
+          </div>
+        )}
     </div>
   );
 };

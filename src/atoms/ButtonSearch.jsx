@@ -1,7 +1,5 @@
-import React from "react";
-
 const ButtonSearch = ({ handleSearch }) => {
-  return <Button onClick={handleSearch}>Search</Button>;
+  return <button onClick={handleSearch}>Search</button>;
 };
 
 export default ButtonSearch;
