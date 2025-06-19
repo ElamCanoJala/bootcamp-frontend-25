@@ -12,11 +12,12 @@ const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
   };
 
   return (
-    <div style={{ display: "flex", gap: "2px", margin: "7px" }}>
+    <div style={{ display: "flex", gap: "10px", margin: "7px" }}>
       <input
         type="checkbox"
         checked={todo.completed}
         onChange={() => onToggle(todo.id)}
+        style={{ accentColor: "violet" }}
       />
       {isEditing ? (
         <input value={editText} onChange={(e) => setEditText(e.target.value)} />
