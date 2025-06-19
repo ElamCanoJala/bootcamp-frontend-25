@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TodoItem from "../atoms/TodoItem";
+import Button from "../atoms/Button";
 
 const TodoCard = () => {
   const [todos, setTodos] = useState([]);
@@ -37,7 +38,8 @@ const TodoCard = () => {
             if (e.key === "Enter") addTodo();
           }}
         />
-        <button onClick={addTodo}>Add</button>
+        <Button onclick={addTodo} text={"Add"} style={"add"} />
+        {/*  <button onClick={addTodo}>Add</button> */}
       </div>
 
       <div>

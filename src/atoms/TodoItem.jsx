@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "./Button";
 
 const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -12,7 +13,14 @@ const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
   };
 
   return (
-    <div style={{ display: "flex", gap: "10px", margin: "7px" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: "10px",
+        margin: "7px",
+        alignItems: "center",
+      }}
+    >
       <input
         type="checkbox"
         checked={todo.completed}
@@ -28,8 +36,18 @@ const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
           {todo.text}
         </span>
       )}
-      <button onClick={handleEdit}>{isEditing ? "Save" : "Edit"}</button>
-      <button onClick={() => onDelete(todo.id)}>Delete</button>
+      <Button
+        onclick={handleEdit}
+        text={isEditing ? "Save" : "Edit"}
+        style={isEditing ? "save" : "edit"}
+      />
+      <Button
+        onclick={() => onDelete(todo.id)}
+        text="Delete"
+        style={"delete"}
+      />
+      {/* <button onClick={handleEdit}>{isEditing ? "Save" : "Edit"}</button>
+      <button onClick={() => onDelete(todo.id)}>Delete</button> */}
     </div>
   );
 };

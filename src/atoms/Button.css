@@ -1,0 +1,30 @@
+.save {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.edit {
+  background-color: #1b5577;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete {
+  background-color: #bb281e;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.add {
+  background-color: #1c3cca;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
