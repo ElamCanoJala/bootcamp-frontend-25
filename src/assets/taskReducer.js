@@ -11,7 +11,13 @@ function taskReducer(state, action) {
         ...state,
         tasks: [
           ...state.tasks,
-          { id: Date.now(), text: state.input, completed: false },
+          {
+            id: Date.now(),
+            text: state.input,
+            completed: false,
+            isEditing: false,
+            editText: state.input,
+          },
         ],
         input: "",
       };
@@ -27,11 +33,38 @@ function taskReducer(state, action) {
         ...state,
         tasks: state.tasks.filter((t) => t.id !== action.payload.id),
       };
+    case "startEditing":
+      return {
+        ...state,
+        tasks: state.tasks.map((t) =>
+          t.id === action.payload.id
+            ? { ...t, isEditing: true, editText: t.text }
+            : t
+        ),
+      };
+
+    case "changeEditText":
+      return {
+        ...state,
+        tasks: state.tasks.map((t) =>
+          t.id === action.payload.id
+            ? { ...t, editText: action.payload.text }
+            : t
+        ),
+      };
+
     case "edited":
       return {
         ...state,
         tasks: state.tasks.map((t) =>
-          t.id === action.payload.id ? { ...t, text: action.payload.text } : t
+          t.id === action.payload.id
+            ? {
+                ...t,
+                text: action.payload.text,
+                isEditing: false,
+                editText: "",
+              }
+            : t
         ),
       };
     default:

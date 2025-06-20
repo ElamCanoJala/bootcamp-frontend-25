@@ -23,7 +23,13 @@ const TodoCard = () => {
   function handleEditTask(id, text) {
     dispatch({ type: "edited", payload: { id, text } });
   }
+  function handleStartEditing(id) {
+    dispatch({ type: "startEditing", payload: { id } });
+  }
 
+  function handleChangeEditText(id, text) {
+    dispatch({ type: "changeEditText", payload: { id, text } });
+  }
   // const [todos, setTodos] = useState([]);
   // const [input, setInput] = useState("");
 
@@ -72,6 +78,8 @@ const TodoCard = () => {
             onToggle={handleToggleTask}
             onDelete={handleDeleteTask}
             onEdit={handleEditTask}
+            onStartEditing={handleStartEditing}
+            onChangeEditText={handleChangeEditText}
           />
         ))}
       </div>

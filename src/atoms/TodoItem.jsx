@@ -1,15 +1,23 @@
-import React, { useState } from "react";
 import Button from "./Button";
 
-const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(todo.text);
-
-  const handleEdit = () => {
-    if (isEditing) {
-      onEdit(todo.id, editText);
+const TodoItem = ({
+  todo,
+  onToggle,
+  onDelete,
+  onEdit,
+  onStartEditing,
+  onChangeEditText,
+}) => {
+  const handleEditClick = () => {
+    if (todo.isEditing) {
+      onEdit(todo.id, todo.editText);
+    } else {
+      onStartEditing(todo.id);
     }
-    setIsEditing(!isEditing);
+  };
+
+  const handleChangeEditText = (e) => {
+    onChangeEditText(todo.id, e.target.value);
   };
 
   return (
@@ -27,19 +35,21 @@ const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
         onChange={() => onToggle(todo.id)}
         style={{ accentColor: "violet" }}
       />
-      {isEditing ? (
-        <input value={editText} onChange={(e) => setEditText(e.target.value)} />
+      {todo.isEditing ? (
+        <input value={todo.editText} onChange={handleChangeEditText} />
       ) : (
         <span
-          style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+          style={{
+            textDecoration: todo.completed ? "line-through" : "none",
+          }}
         >
           {todo.text}
         </span>
       )}
       <Button
-        onclick={handleEdit}
-        text={isEditing ? "Save" : "Edit"}
-        style={isEditing ? "save" : "edit"}
+        onclick={handleEditClick}
+        text={todo.isEditing ? "Save" : "Edit"}
+        style={todo.isEditing ? "save" : "edit"}
       />
       <Button
         onclick={() => onDelete(todo.id)}
