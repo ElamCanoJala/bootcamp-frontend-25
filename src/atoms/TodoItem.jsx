@@ -46,8 +46,6 @@ const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
         text="Delete"
         style={"delete"}
       />
-      {/* <button onClick={handleEdit}>{isEditing ? "Save" : "Edit"}</button>
-      <button onClick={() => onDelete(todo.id)}>Delete</button> */}
     </div>
   );
 };

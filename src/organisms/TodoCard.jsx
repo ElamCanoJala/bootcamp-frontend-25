@@ -1,30 +1,51 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import TodoItem from "../atoms/TodoItem";
 import Button from "../atoms/Button";
+import { useReducer } from "react";
+import taskReducer, { initialState } from "../assets/taskReducer";
 
 const TodoCard = () => {
-  const [todos, setTodos] = useState([]);
-  const [input, setInput] = useState("");
+  const [state, dispatch] = useReducer(taskReducer, initialState);
+  const { tasks, input } = state;
 
-  const addTodo = () => {
-    if (!input.trim()) return;
-    setTodos([...todos, { id: Date.now(), text: input, completed: false }]);
-    setInput("");
-  };
+  function handleAddTask() {
+    dispatch({ type: "added" });
+  }
 
-  const toggleTodo = (id) => {
-    setTodos(
-      todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
-    );
-  };
+  function handleToggleTask(id) {
+    dispatch({ type: "toggled", payload: { id } });
+  }
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((t) => t.id !== id));
-  };
+  function handleDeleteTask(id) {
+    dispatch({ type: "deleted", payload: { id } });
+  }
 
-  const editTodo = (id, newText) => {
-    setTodos(todos.map((t) => (t.id === id ? { ...t, text: newText } : t)));
-  };
+  function handleEditTask(id, text) {
+    dispatch({ type: "edited", payload: { id, text } });
+  }
+
+  // const [todos, setTodos] = useState([]);
+  // const [input, setInput] = useState("");
+
+  // const addTodo = () => {
+  //   if (!input.trim()) return;
+  //   setTodos([...todos, { id: Date.now(), text: input, completed: false }]);
+  //   setInput("");
+  // };
+
+  // const toggleTodo = (id) => {
+  //   setTodos(
+  //     todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+  //   );
+  // };
+
+  // const deleteTodo = (id) => {
+  //   setTodos(todos.filter((t) => t.id !== id));
+  // };
+
+  // const editTodo = (id, newText) => {
+  //   setTodos(todos.map((t) => (t.id === id ? { ...t, text: newText } : t)));
+  // };
 
   return (
     <div style={{ padding: "10px" }}>
@@ -32,24 +53,25 @@ const TodoCard = () => {
       <div style={{ display: "flex", gap: "10px" }}>
         <input
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) =>
+            dispatch({ type: "inputChanged", payload: e.target.value })
+          }
           placeholder="Add a task"
           onKeyDown={(e) => {
-            if (e.key === "Enter") addTodo();
+            if (e.key === "Enter") handleAddTask();
           }}
         />
-        <Button onclick={addTodo} text={"Add"} style={"add"} />
-        {/*  <button onClick={addTodo}>Add</button> */}
+        <Button onclick={handleAddTask} text={"Add"} style={"add"} />
       </div>
 
       <div>
-        {todos.map((todo) => (
+        {tasks.map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
-            onToggle={toggleTodo}
-            onDelete={deleteTodo}
-            onEdit={editTodo}
+            onToggle={handleToggleTask}
+            onDelete={handleDeleteTask}
+            onEdit={handleEditTask}
           />
         ))}
       </div>
