@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { LanguageContext } from "../../LanguageContext";
+import Button from "./atoms/Button";
 
 // const languages = ["JavaScript", "Python"];
 
@@ -9,9 +10,10 @@ const MainSection = () => {
   return (
     <div>
       <p id="favoriteLanguage">favorite programing language: {language}</p>
-      <button id="changeFavorite" onClick={toggleLanguage}>
+      <Button id="changeFavorite" onClick={toggleLanguage} />
+      {/*     <button id="changeFavorite" onClick={toggleLanguage}>
         toggle language
-      </button>
+      </button> */}
     </div>
   );
 };
