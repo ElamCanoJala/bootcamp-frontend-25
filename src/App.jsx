@@ -12,21 +12,13 @@
  * Submit your code once it is complete.
  */
 
-const languages = ["JavaScript", "Python"];
+import MainSection from "./components/organisms/MainSection";
+import LanguageProvider from "./LanguageContext";
 
 export default function App() {
   return (
-    <>
+    <LanguageProvider>
       <MainSection />
-    </>
-  );
-}
-
-function MainSection() {
-  return (
-    <div>
-      <p id="favoriteLanguage">favorite programing language: {languages[0]}</p>
-      <button id="changeFavorite">toggle language</button>
-    </div>
+    </LanguageProvider>
   );
 }
