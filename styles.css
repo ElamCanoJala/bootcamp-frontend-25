@@ -17,12 +17,13 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 80px);
-  grid-template-rows: repeat(2, 120px);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 5px;
 }
 
 .card {
+  aspect-ratio: 2/3;
   background-image: url("card.jpg");
   background-size: cover;
   border: 2px solid white;
