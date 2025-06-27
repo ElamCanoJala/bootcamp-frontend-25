@@ -30,12 +30,6 @@ body {
   border-radius: 8px;
 }
 
-.column.side {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .icon {
   background: #222;
   color: white;
@@ -43,4 +37,28 @@ body {
   border-radius: 6px;
   padding: 10px;
   font-size: 1.5rem;
+}
+.column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.icon-left {
+  grid-column: 2;
+}
+
+.previous {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.icon-right {
+  grid-column: 1;
+}
+
+.next {
+  grid-column: 2;
+  grid-row: 4;
 }
