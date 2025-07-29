@@ -1,5 +1,7 @@
-import styles from './Checkout.module.css';
-import { LoadingIcon } from './Icons';
+import { useEffect, useState } from "react";
+import styles from "./Checkout.module.css";
+import { LoadingIcon } from "./Icons";
+import { getProducts } from "./dataService";
 // import { getProducts } from './dataService';
 
 // You are provided with an incomplete <Checkout /> component.
@@ -20,34 +22,77 @@ import { LoadingIcon } from './Icons';
 //  - The total should reflect any discount that has been applied
 //  - All dollar amounts should be displayed to 2 decimal places
 
+const Product = ({
+  id,
+  name,
+  availableCount,
+  price,
+  orderedQuantity,
+  total,
+  handleTotal,
+}) => {
+  const [quantity, setQuantity] = useState(0);
 
+  const handleIncQuantity = () => {
+    if (quantity <= orderedQuantity) {
+      setQuantity((quantity) => quantity + price);
+    }
+    handleTotal(total + price, true);
+  };
+  const handleDecQuantity = () => {
+    handleTotal(total - price, false);
 
-const Product = ({ id, name, availableCount, price, orderedQuantity, total }) => {
+    if (quantity >= 0) {
+      setQuantity((quantity) => quantity - price);
+    }
+  };
   return (
     <tr>
       <td>{id}</td>
       <td>{name}</td>
       <td>{availableCount}</td>
       <td>${price}</td>
-      <td>{orderedQuantity}</td>   
+      <td>{quantity}</td>
       <td>${total}</td>
       <td>
-        <button className={styles.actionButton}>+</button>
-        <button className={styles.actionButton}>-</button>
+        <button className={styles.actionButton} onClick={handleIncQuantity}>
+          +
+        </button>
+        <button className={styles.actionButton} onClick={handleDecQuantity}>
+          -
+        </button>
       </td>
-    </tr>    
+    </tr>
   );
-}
-
+};
 
 const Checkout = () => {
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await getProducts();
+      setProducts(response);
+    };
+    fetchProducts();
+  }, []);
+
+  const handleTotal = (price: number, action) => {
+    if (action == true) {
+      setTotal((total) => total + price);
+    } else {
+      setTotal((total) => total - price);
+    }
+  };
+
   return (
     <div>
-      <header className={styles.header}>        
-        <h1>Electro World</h1>        
+      <header className={styles.header}>
+        <h1>Electro World</h1>
       </header>
       <main>
-        <LoadingIcon />        
+        {/* 
+        <LoadingIcon /> */}
         <table className={styles.table}>
           <thead>
             <tr>
@@ -62,12 +107,28 @@ const Checkout = () => {
             </tr>
           </thead>
           <tbody>
-          {/* Products should be rendered here */}
+            {products.length > 0 ? (
+              <>
+                {products.map((p) => {
+                  return (
+                    <Product
+                      availableCount={p.availableCount}
+                      id={p.id}
+                      name={p.name}
+                      price={p.price}
+                      setTotal={handleTotal}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <LoadingIcon />
+            )}
           </tbody>
         </table>
         <h2>Order summary</h2>
         <p>Discount: $ </p>
-        <p>Total: $ </p>       
+        <p>Total: {total}$ </p>
       </main>
     </div>
   );
